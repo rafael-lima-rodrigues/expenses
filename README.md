@@ -1,16 +1,11 @@
-# expenses
+# Flutter Project - Expenses
 
-A new Flutter project.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## About
+This application is the result of my studies in Flutter. The focus of this project is to explore the different features of Flutter. All the development is based on the course ["Aprenda Flutter e Desenvolva Apps Para Android e IOS 2022"](https://www.udemy.com/course/curso-flutter/).
+The idea of the course is to create an app for weekly financial spending control, displaying a list with the expenses and a chart representing the amount of spending per day in relation to the total spending of the week.
+## Technologies
+- Flutter
+- Dart
+- Flutter Material - Android
+- Flutter Cupertino - IOS
