@@ -7,5 +7,5 @@ The idea of the course is to create an app for weekly financial spending control
 ## Technologies
 - Flutter
 - Dart
-- Flutter Material - Android
-- Flutter Cupertino - IOS
+- Flutter Material - Android 🤖
+- Flutter Cupertino - IOS 🍎
