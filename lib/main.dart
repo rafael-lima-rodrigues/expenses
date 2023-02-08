@@ -142,13 +142,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    final iconList = Platform.isIOS ? CupertinoIcons.list_dash : Icons.list;
+    final chartList = Platform.isIOS ? CupertinoIcons.chart_bar_alt_fill : Icons.bar_chart;
 
     bool islandScape = mediaQuery.orientation == Orientation.landscape;
 
     final actions = <Widget>[
       if (islandScape)
         _getIconButton(
-          _showChart ? Icons.list : Icons.bar_chart,
+          _showChart ? iconList : chartList,
           () {
             setState(() {
               _showChart = !_showChart;
@@ -171,21 +173,23 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar.preferredSize.height -
         mediaQuery.padding.top;
 
-    final bodyPage = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          if (_showChart || !islandScape)
-            Container(
-              height: availableHeight * (islandScape ? 0.8 : 0.3),
-              child: Chart(_recentTransactions),
-            ),
-          if (!_showChart || !islandScape)
-            Container(
-              height: availableHeight * (islandScape ? 1 : 0.7),
-              child: TransactionList(_transactions, _deleteTransaction),
-            ),
-        ],
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if (_showChart || !islandScape)
+              Container(
+                height: availableHeight * (islandScape ? 0.8 : 0.3),
+                child: Chart(_recentTransactions),
+              ),
+            if (!_showChart || !islandScape)
+              Container(
+                height: availableHeight * (islandScape ? 1 : 0.7),
+                child: TransactionList(_transactions, _deleteTransaction),
+              ),
+          ],
+        ),
       ),
     );
 
