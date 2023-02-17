@@ -50,46 +50,27 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   bool _showChart = false;
-  final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: 't0',
-    //   title: 'Novo Tenis de Corrida',
-    //   value: 100,
-    //   date: DateTime.now().subtract(Duration(days: 33)),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Novo Tenis de Corrida',
-    //   value: 310.76,
-    //   date: DateTime.now().subtract(Duration(days: 3)),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Conta de Luz',
-    //   value: 200.10,
-    //   date: DateTime.now().subtract(Duration(days: 4)),
-    // ),
-    // Transaction(
-    //   id: 't10',
-    //   title: 'Novo Tenis de Corrida',
-    //   value: 100,
-    //   date: DateTime.now().subtract(Duration(days: 33)),
-    // ),
-    // Transaction(
-    //   id: 't11',
-    //   title: 'Novo Tenis de Corrida',
-    //   value: 100,
-    //   date: DateTime.now().subtract(Duration(days: 30)),
-    // ),
-    // Transaction(
-    //   id: 't7',
-    //   title: 'Novo Tenis de Corrida',
-    //   value: 100,
-    //   date: DateTime.now().subtract(Duration(days: 33)),
-    // ),
-  ];
+  final List<Transaction> _transactions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((element) {
@@ -143,7 +124,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final iconList = Platform.isIOS ? CupertinoIcons.list_dash : Icons.list;
-    final chartList = Platform.isIOS ? CupertinoIcons.chart_bar_alt_fill : Icons.bar_chart;
+    final chartList =
+        Platform.isIOS ? CupertinoIcons.chart_bar_alt_fill : Icons.bar_chart;
 
     bool islandScape = mediaQuery.orientation == Orientation.landscape;
 
@@ -157,13 +139,14 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
         ),
-      _getIconButton( Platform.isIOS ? CupertinoIcons.add : Icons.add,
+      _getIconButton(
+        Platform.isIOS ? CupertinoIcons.add : Icons.add,
         () => _openTransactionFormModal(context),
       ),
     ];
 
     final appBar = AppBar(
-      title: Text(
+      title: const Text(
         'Despesas Pessoais',
       ),
       actions: actions,
@@ -197,9 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ? CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
               middle: Text('Despesas Pessoais'),
-              trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: actions),
+              trailing: Row(mainAxisSize: MainAxisSize.min, children: actions),
             ),
             child: bodyPage,
           )
